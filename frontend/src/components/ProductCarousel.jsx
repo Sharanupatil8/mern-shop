@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Carousel, Image } from 'react-bootstrap';
+import { Carousel, Image, Row, Col } from 'react-bootstrap';
 import Message from './Message';
 import { useGetTopProductsQuery } from '../slices/productsApiSlice';
 
@@ -13,12 +13,24 @@ const ProductCarousel = () => {
       {products.map((product) => (
         <Carousel.Item key={product._id}>
           <Link to={`/product/${product._id}`}>
-            <Image src={product.image} alt={product.name} fluid />
-            <Carousel.Caption className='carousel-caption'>
-              <h2 className='text-white text-right'>
-                {product.name} (${product.price})
-              </h2>
-            </Carousel.Caption>
+            <Row className="align-items-center">
+              <Col md={6} xs={12}>
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  className='d-block w-100'
+                  style={{ objectFit: 'cover' }}
+                  fluid
+                />
+              </Col>
+              <Col md={6} xs={12} className="text-center text-md-right mt-3 mt-md-0">
+                <Carousel.Caption className='carousel-caption'>
+                  <h2 className='text-white'>
+                    {product.name} (${product.price})
+                  </h2>
+                </Carousel.Caption>
+              </Col>
+            </Row>
           </Link>
         </Carousel.Item>
       ))}
